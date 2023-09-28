@@ -5,9 +5,12 @@ const blogSchema=mongoose.Schema({
     content:String,
     category:String,
     author:String,
-    likes:Number,
+    likes:String,
     date:String,
-    comments:[String]
+    comments:[ {
+       username: String,
+        content: String,
+    },]
 })
 
 const BlogModel=mongoose.model("blog",blogSchema)
