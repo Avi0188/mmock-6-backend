@@ -85,6 +85,67 @@ const blogs=await BlogModel.find().sort({date:sortOrder})
     }
 })
 
+// edit 
+blogRouter.put("/api/blogs/:id",auth ,async(req,res)=>{
+    try {
+        
+const {id}=req.params
+const {title, content, category,date}=req.body
+const updateBlog=await BlogModel.findByIdAndUpdate(id,
+    {title,content,category,date},{new:true})
+         res.status(200).json(updateBlog)
+      
+       
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
+
+
+// delete
+
+blogRouter.delete("/api/blogs/:id",auth ,async(req,res)=>{
+    try {
+        
+const {id}=req.params
+const {title, content, category,date}=req.body
+const updateBlog=await BlogModel.findByIdAndDelete(id)
+         res.status(200).json("Blog deleted")
+      
+       
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
+
+// like
+
+blogRouter.delete("/api/blogs/:id",auth ,async(req,res)=>{
+    try {
+        
+const {id}=req.params
+const likedBlog=await BlogModel.findByIdAndUpdate(id,{$inc:{likes:1}},{new:true})
+         res.status(200).json(likedBlog)
+      
+       
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
+
+// comment
+blogRouter.delete("/api/blogs/:id",auth ,async(req,res)=>{
+    try {
+        
+const {id}=req.params
+const commentedBlog=await BlogModel.findByIdAndUpdate(id,{$push:{comments:username,content}},{new:true})
+         res.status(200).json(commentedBlog)
+      
+       
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
 
 
 
