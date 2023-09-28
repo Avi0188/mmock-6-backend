@@ -6,6 +6,7 @@ const blogSchema=mongoose.Schema({
     category:String,
     author:String,
     likes:Number,
+    date:Date,
     comments:[]
 })
 
